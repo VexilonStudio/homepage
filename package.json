@@ -1,0 +1,9 @@
+{
+  "name": "vexilon-studio-site",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Vexilon Studio landing page",
+  "scripts": {
+    "start": "npx serve -s . -l $PORT"
+  }
+}
