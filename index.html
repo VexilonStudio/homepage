@@ -1,0 +1,659 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="description" content="Vexilon Studio builds sharp websites and bold digital art—fast, modern, and unapologetically beautiful." />
+  <title>Vexilon Studio — Websites & Digital Art</title>
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="Vexilon Studio — Websites & Digital Art" />
+  <meta property="og:description" content="We build sharp websites and bold digital art—fast, modern, and unapologetically beautiful." />
+  <meta property="og:type" content="website" />
+
+  <style>
+    :root{
+      --bg0:#070A12;
+      --bg1:#0A1024;
+      --card: rgba(255,255,255,0.06);
+      --card2: rgba(255,255,255,0.09);
+      --stroke: rgba(255,255,255,0.12);
+      --text: rgba(255,255,255,0.92);
+      --muted: rgba(255,255,255,0.68);
+      --faint: rgba(255,255,255,0.48);
+      --shadow: 0 18px 60px rgba(0,0,0,.55);
+      --radius: 22px;
+
+      --a: #7C3AED; /* violet */
+      --b: #06B6D4; /* cyan  */
+      --c: #F97316; /* orange */
+
+      --max: 1120px;
+    }
+
+    *{ box-sizing:border-box; }
+    html,body{ height:100%; }
+    body{
+      margin:0;
+      color:var(--text);
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+      background:
+        radial-gradient(1100px 700px at 15% 10%, rgba(124,58,237,.25), transparent 60%),
+        radial-gradient(900px 600px at 80% 15%, rgba(6,182,212,.20), transparent 55%),
+        radial-gradient(800px 600px at 55% 95%, rgba(249,115,22,.14), transparent 55%),
+        linear-gradient(180deg, var(--bg0), var(--bg1));
+      overflow-x:hidden;
+    }
+
+    /* Subtle animated noise overlay */
+    .grain{
+      pointer-events:none;
+      position:fixed; inset:0;
+      background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='220' height='220' filter='url(%23n)' opacity='.22'/%3E%3C/svg%3E");
+      mix-blend-mode: overlay;
+      opacity:.22;
+      animation: drift 10s linear infinite;
+      transform: translateZ(0);
+    }
+    @keyframes drift{
+      from{ transform:translate3d(0,0,0); }
+      to{ transform:translate3d(-3%,2%,0); }
+    }
+
+    /* Floating orbs */
+    .orb{
+      position:absolute;
+      width:520px; height:520px;
+      border-radius:50%;
+      filter: blur(30px);
+      opacity:.35;
+      mix-blend-mode: screen;
+      transform: translateZ(0);
+      animation: float 10s ease-in-out infinite;
+    }
+    .orb.one{ left:-180px; top:120px; background:radial-gradient(circle at 30% 30%, rgba(124,58,237,.9), transparent 60%); }
+    .orb.two{ right:-220px; top:240px; background:radial-gradient(circle at 30% 30%, rgba(6,182,212,.9), transparent 60%); animation-delay:-4s; }
+    .orb.three{ left:35%; bottom:-280px; background:radial-gradient(circle at 30% 30%, rgba(249,115,22,.75), transparent 62%); animation-delay:-7s; }
+    @keyframes float{
+      0%,100%{ transform: translate3d(0,0,0) scale(1); }
+      50%{ transform: translate3d(0,-18px,0) scale(1.03); }
+    }
+
+    .wrap{ width:min(var(--max), calc(100% - 40px)); margin:0 auto; }
+    header{
+      position:sticky; top:0; z-index:20;
+      backdrop-filter: blur(14px);
+      background: linear-gradient(to bottom, rgba(7,10,18,.75), rgba(7,10,18,.25));
+      border-bottom:1px solid rgba(255,255,255,.08);
+    }
+    .nav{
+      display:flex; align-items:center; justify-content:space-between;
+      padding:16px 0;
+    }
+    .brand{
+      display:flex; align-items:center; gap:12px;
+      letter-spacing:.2px;
+      text-decoration:none;
+      color:var(--text);
+    }
+    .logo{
+      width:38px; height:38px;
+      border-radius:12px;
+      background:
+        radial-gradient(circle at 30% 30%, rgba(255,255,255,.25), transparent 35%),
+        linear-gradient(135deg, rgba(124,58,237,.95), rgba(6,182,212,.85));
+      border:1px solid rgba(255,255,255,.22);
+      box-shadow: 0 12px 30px rgba(0,0,0,.35);
+      position:relative;
+      overflow:hidden;
+    }
+    .logo:after{
+      content:"";
+      position:absolute; inset:-40%;
+      background: conic-gradient(from 130deg, rgba(255,255,255,.0), rgba(255,255,255,.18), rgba(255,255,255,.0));
+      animation: spin 3.8s linear infinite;
+    }
+    @keyframes spin{ to{ transform: rotate(360deg);} }
+
+    .brand b{ font-weight:750; }
+    .pill{
+      font-size:12px;
+      padding:6px 10px;
+      border-radius:999px;
+      border:1px solid rgba(255,255,255,.14);
+      color:var(--muted);
+      background: rgba(255,255,255,.05);
+    }
+
+    .navlinks{ display:flex; gap:18px; align-items:center; }
+    .navlinks a{
+      color:var(--muted);
+      text-decoration:none;
+      font-size:14px;
+      padding:8px 10px;
+      border-radius:999px;
+      border:1px solid transparent;
+    }
+    .navlinks a:hover{
+      color:var(--text);
+      border-color: rgba(255,255,255,.14);
+      background: rgba(255,255,255,.04);
+    }
+
+    .cta{
+      display:flex; gap:10px; align-items:center;
+    }
+    .btn{
+      appearance:none; border:none; cursor:pointer;
+      font-weight:650;
+      border-radius:999px;
+      padding:10px 14px;
+      color:var(--text);
+      background: rgba(255,255,255,.06);
+      border:1px solid rgba(255,255,255,.14);
+      text-decoration:none;
+      display:inline-flex; align-items:center; gap:10px;
+      transition: transform .12s ease, background .12s ease, border-color .12s ease;
+    }
+    .btn:hover{ transform: translateY(-1px); border-color: rgba(255,255,255,.22); background: rgba(255,255,255,.09); }
+    .btn.primary{
+      background: linear-gradient(135deg, rgba(124,58,237,.95), rgba(6,182,212,.85));
+      border-color: rgba(255,255,255,.22);
+      box-shadow: 0 16px 60px rgba(124,58,237,.20);
+    }
+    .btn.primary:hover{ box-shadow: 0 20px 70px rgba(6,182,212,.18); }
+
+    main{ position:relative; }
+    .hero{
+      padding: 74px 0 24px;
+      position:relative;
+    }
+    .heroGrid{
+      display:grid;
+      grid-template-columns: 1.15fr .85fr;
+      gap: 22px;
+      align-items: start;
+    }
+    @media (max-width: 920px){
+      .heroGrid{ grid-template-columns: 1fr; }
+      .navlinks{ display:none; }
+    }
+
+    .kicker{
+      display:inline-flex;
+      align-items:center;
+      gap:10px;
+      padding:8px 12px;
+      border-radius:999px;
+      border:1px solid rgba(255,255,255,.14);
+      background: rgba(255,255,255,.05);
+      color: var(--muted);
+      font-size:13px;
+    }
+    .dot{
+      width:8px; height:8px; border-radius:50%;
+      background: linear-gradient(135deg, var(--a), var(--b));
+      box-shadow: 0 0 0 4px rgba(124,58,237,.16);
+    }
+    h1{
+      font-size: clamp(38px, 4.8vw, 62px);
+      line-height: 1.02;
+      margin: 14px 0 10px;
+      letter-spacing: -0.02em;
+    }
+    .grad{
+      background: linear-gradient(135deg, rgba(255,255,255,.95), rgba(255,255,255,.65));
+      -webkit-background-clip:text;
+      background-clip:text;
+      color:transparent;
+    }
+    .accent{
+      background: linear-gradient(135deg, var(--a), var(--b), var(--c));
+      -webkit-background-clip:text;
+      background-clip:text;
+      color:transparent;
+      filter: drop-shadow(0 8px 20px rgba(124,58,237,.18));
+    }
+    .lead{
+      color: var(--muted);
+      font-size: 16.5px;
+      line-height: 1.6;
+      max-width: 62ch;
+      margin: 10px 0 18px;
+    }
+    .heroActions{
+      display:flex;
+      flex-wrap:wrap;
+      gap:12px;
+      align-items:center;
+      margin: 14px 0 18px;
+    }
+    .hint{
+      color: var(--faint);
+      font-size: 13px;
+      margin-top: 8px;
+    }
+
+    .card{
+      background: linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.04));
+      border: 1px solid rgba(255,255,255,.12);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      overflow:hidden;
+      position:relative;
+    }
+    .card:before{
+      content:"";
+      position:absolute; inset:-60%;
+      background: radial-gradient(circle at 30% 30%, rgba(124,58,237,.16), transparent 40%),
+                  radial-gradient(circle at 65% 45%, rgba(6,182,212,.12), transparent 38%);
+      transform: translateZ(0);
+      pointer-events:none;
+    }
+    .cardInner{ position:relative; padding:18px; }
+
+    .statGrid{
+      display:grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+      margin-top: 12px;
+    }
+    @media (max-width: 560px){ .statGrid{ grid-template-columns: 1fr; } }
+
+    .stat{
+      background: rgba(0,0,0,.18);
+      border: 1px solid rgba(255,255,255,.10);
+      border-radius: 16px;
+      padding: 12px;
+    }
+    .stat b{ font-size: 18px; display:block; letter-spacing:-.01em; }
+    .stat span{ color: var(--muted); font-size: 12.5px; }
+
+    .services{
+      padding: 28px 0 8px;
+    }
+    .sectionTitle{
+      display:flex; justify-content:space-between; align-items:flex-end; gap:16px;
+      margin: 18px 0 12px;
+    }
+    .sectionTitle h2{
+      margin:0;
+      font-size: 22px;
+      letter-spacing: -0.01em;
+    }
+    .sectionTitle p{
+      margin:0;
+      color:var(--muted);
+      font-size: 13.5px;
+      max-width: 64ch;
+    }
+
+    .tiles{
+      display:grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+    }
+    @media (max-width: 920px){ .tiles{ grid-template-columns: 1fr; } }
+
+    .tile{
+      background: rgba(255,255,255,.05);
+      border:1px solid rgba(255,255,255,.12);
+      border-radius: 18px;
+      padding: 16px;
+      transition: transform .15s ease, background .15s ease, border-color .15s ease;
+      position:relative;
+      overflow:hidden;
+    }
+    .tile:hover{
+      transform: translateY(-2px);
+      background: rgba(255,255,255,.07);
+      border-color: rgba(255,255,255,.20);
+    }
+    .icon{
+      width:40px; height:40px; border-radius:14px;
+      display:grid; place-items:center;
+      background: linear-gradient(135deg, rgba(124,58,237,.55), rgba(6,182,212,.30));
+      border:1px solid rgba(255,255,255,.18);
+      box-shadow: 0 12px 30px rgba(0,0,0,.25);
+      margin-bottom: 10px;
+      font-size: 18px;
+    }
+    .tile h3{ margin: 6px 0 6px; font-size: 16px; }
+    .tile p{ margin:0; color:var(--muted); line-height: 1.55; font-size: 14px; }
+
+    .showcase{
+      padding: 18px 0 44px;
+    }
+    .mock{
+      height: 300px;
+      border-radius: 20px;
+      background:
+        linear-gradient(135deg, rgba(124,58,237,.16), rgba(6,182,212,.10)),
+        radial-gradient(600px 220px at 20% 20%, rgba(255,255,255,.10), transparent 60%),
+        radial-gradient(540px 260px at 80% 45%, rgba(255,255,255,.06), transparent 60%),
+        rgba(0,0,0,.18);
+      border:1px solid rgba(255,255,255,.12);
+      position:relative;
+      overflow:hidden;
+    }
+    .mock:before{
+      content:"";
+      position:absolute; inset:0;
+      background:
+        linear-gradient(to right, rgba(255,255,255,.06), rgba(255,255,255,0) 45%, rgba(255,255,255,.05));
+      opacity:.4;
+      transform: translateX(-25%);
+      animation: scan 4.8s ease-in-out infinite;
+    }
+    @keyframes scan{
+      0%,100%{ transform: translateX(-25%); opacity:.25; }
+      50%{ transform: translateX(25%); opacity:.45; }
+    }
+    .mockInner{
+      position:absolute; inset:0;
+      padding: 16px;
+      display:grid;
+      grid-template-rows: auto 1fr auto;
+      gap: 14px;
+    }
+    .browserBar{
+      display:flex; align-items:center; justify-content:space-between;
+      gap:12px;
+      color: var(--muted);
+      font-size: 12px;
+    }
+    .dots{ display:flex; gap:8px; align-items:center; }
+    .dots i{ width:10px; height:10px; border-radius:50%; background: rgba(255,255,255,.18); display:inline-block; }
+    .path{
+      flex:1;
+      border:1px solid rgba(255,255,255,.10);
+      background: rgba(0,0,0,.18);
+      padding: 8px 10px;
+      border-radius: 999px;
+      overflow:hidden;
+      white-space:nowrap;
+      text-overflow: ellipsis;
+    }
+
+    .gridbits{
+      display:grid;
+      grid-template-columns: 1.1fr .9fr;
+      gap: 14px;
+      align-items:stretch;
+    }
+    @media (max-width: 700px){ .gridbits{ grid-template-columns: 1fr; } }
+
+    .mini{
+      border:1px solid rgba(255,255,255,.10);
+      background: rgba(0,0,0,.18);
+      border-radius: 18px;
+      padding: 14px;
+    }
+    .mini h4{ margin:0 0 6px; font-size: 14px; }
+    .mini p{ margin:0; color: var(--muted); font-size: 13px; line-height: 1.55; }
+
+    .footer{
+      padding: 26px 0 34px;
+      border-top: 1px solid rgba(255,255,255,.10);
+      color: var(--muted);
+      font-size: 13px;
+    }
+    .footerRow{
+      display:flex; justify-content:space-between; gap:18px; align-items:center; flex-wrap:wrap;
+    }
+    .smallLinks{
+      display:flex; gap:12px; flex-wrap:wrap;
+    }
+    .smallLinks a{
+      color: var(--muted);
+      text-decoration:none;
+      padding: 6px 10px;
+      border-radius: 999px;
+      border:1px solid rgba(255,255,255,.10);
+      background: rgba(255,255,255,.04);
+    }
+    .smallLinks a:hover{ color: var(--text); border-color: rgba(255,255,255,.18); }
+
+    /* reveal animation */
+    .reveal{ opacity:0; transform: translateY(10px); transition: opacity .6s ease, transform .6s ease; }
+    .reveal.in{ opacity:1; transform: translateY(0); }
+  </style>
+</head>
+
+<body>
+  <div class="grain"></div>
+  <div class="orb one"></div>
+  <div class="orb two"></div>
+  <div class="orb three"></div>
+
+  <header>
+    <div class="wrap nav">
+      <a class="brand" href="#top" aria-label="Vexilon Studio home">
+        <div class="logo" aria-hidden="true"></div>
+        <div>
+          <b>Vexilon</b> <span class="pill">Studio</span>
+        </div>
+      </a>
+
+      <nav class="navlinks" aria-label="Site">
+        <a href="#services">Services</a>
+        <a href="#work">Work</a>
+        <a href="#contact">Contact</a>
+      </nav>
+
+      <div class="cta">
+        <a class="btn" href="#contact">Get a quote</a>
+        <a class="btn primary" href="#contact" aria-label="Start a project">
+          Start a project
+          <span aria-hidden="true">→</span>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <main id="top">
+    <section class="hero">
+      <div class="wrap heroGrid">
+        <div class="reveal">
+          <div class="kicker"><span class="dot"></span> Websites that load fast. Art that hits hard.</div>
+          <h1>
+            <span class="grad">We build</span> <span class="accent">websites</span>
+            <span class="grad">and</span> <span class="accent">digital art</span><span class="grad">—</span><br/>
+            <span class="grad">designed to be remembered.</span>
+          </h1>
+          <p class="lead">
+            Vexilon Studio crafts modern websites, brand visuals, and bold digital artwork with the same philosophy:
+            <strong>clarity + character + speed</strong>. No bloat. No “template energy.” Just clean, sharp, custom work.
+          </p>
+
+          <div class="heroActions">
+            <a class="btn primary" href="#contact">Book a free intro call <span aria-hidden="true">→</span></a>
+            <a class="btn" href="#work">See the vibe</a>
+            <a class="btn" href="mailto:hello@vexilon.studio">Email us</a>
+          </div>
+          <div class="hint">Tip: Replace <code>hello@vexilon.studio</code> with your real email once your domain is live.</div>
+        </div>
+
+        <div class="card reveal" aria-label="Value card">
+          <div class="cardInner">
+            <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:14px;">
+              <div>
+                <div style="color:var(--muted);font-size:13px;">What you get</div>
+                <div style="font-size:18px;font-weight:750;margin-top:3px;letter-spacing:-.01em;">
+                  A site that looks expensive and feels effortless.
+                </div>
+              </div>
+              <div class="pill">launch-ready</div>
+            </div>
+
+            <div class="statGrid">
+              <div class="stat">
+                <b>Fast</b>
+                <span>Performance-first builds</span>
+              </div>
+              <div class="stat">
+                <b>Custom</b>
+                <span>Designed, not assembled</span>
+              </div>
+              <div class="stat">
+                <b>Sharp</b>
+                <span>Modern UI + strong art direction</span>
+              </div>
+            </div>
+
+            <div style="margin-top:12px;color:var(--muted);font-size:13.5px;line-height:1.55;">
+              We’re a studio that merges engineering and aesthetics. If you want “safe and bland,”
+              there are cheaper options. If you want people to <em>remember</em> you, let’s talk.
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="services" class="services">
+      <div class="wrap">
+        <div class="sectionTitle reveal">
+          <div>
+            <h2>Services</h2>
+            <p>Pick what you need. Or hand us the chaos and we’ll turn it into something clean.</p>
+          </div>
+          <div class="pill">web + art</div>
+        </div>
+
+        <div class="tiles">
+          <div class="tile reveal">
+            <div class="icon" aria-hidden="true">⚡</div>
+            <h3>Websites that convert</h3>
+            <p>Landing pages, portfolios, and full sites built for speed, clarity, SEO basics, and mobile-first polish.</p>
+          </div>
+
+          <div class="tile reveal">
+            <div class="icon" aria-hidden="true">🧠</div>
+            <h3>Brand & visual identity</h3>
+            <p>Logos, typography direction, palettes, and layout systems—so your brand stops looking “temporary.”</p>
+          </div>
+
+          <div class="tile reveal">
+            <div class="icon" aria-hidden="true">🎨</div>
+            <h3>Digital art & assets</h3>
+            <p>Cover art, social visuals, UI illustrations, icons, and custom graphics with a distinctive aesthetic.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="work" class="showcase">
+      <div class="wrap">
+        <div class="sectionTitle reveal">
+          <div>
+            <h2>Work preview</h2>
+            <p>No fake case studies. This is a vibe scaffold—swap in your real projects as you ship them.</p>
+          </div>
+          <div class="pill">replaceable blocks</div>
+        </div>
+
+        <div class="card reveal">
+          <div class="cardInner">
+            <div class="mock" aria-label="Mock browser preview">
+              <div class="mockInner">
+                <div class="browserBar">
+                  <div class="dots" aria-hidden="true"><i></i><i></i><i></i></div>
+                  <div class="path">https://vexilon.studio / featured</div>
+                  <div class="pill">preview</div>
+                </div>
+
+                <div class="gridbits">
+                  <div class="mini">
+                    <h4>Website builds</h4>
+                    <p>Clean layout. Real hierarchy. The kind of UI that makes people trust you instantly.</p>
+                  </div>
+                  <div class="mini">
+                    <h4>Art direction</h4>
+                    <p>Color and composition that feels intentional—not like you clicked “randomize” and prayed.</p>
+                  </div>
+                </div>
+
+                <div style="display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;">
+                  <div style="color:var(--muted);font-size:13px;">Add real portfolio tiles here later (images + links).</div>
+                  <a class="btn" href="#contact">Build ours next <span aria-hidden="true">→</span></a>
+                </div>
+              </div>
+            </div>
+
+            <div style="margin-top:14px;display:flex;gap:10px;flex-wrap:wrap;">
+              <span class="pill">Modern UI</span>
+              <span class="pill">Fast load</span>
+              <span class="pill">Art-forward</span>
+              <span class="pill">Mobile-first</span>
+              <span class="pill">SEO basics</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact" class="services" style="padding-bottom:44px;">
+      <div class="wrap">
+        <div class="sectionTitle reveal">
+          <div>
+            <h2>Contact</h2>
+            <p>Tell us what you’re building. We’ll reply with a clear plan, timeline, and price range.</p>
+          </div>
+          <div class="pill">no fluff</div>
+        </div>
+
+        <div class="tiles">
+          <div class="tile reveal">
+            <div class="icon" aria-hidden="true">✉️</div>
+            <h3>Email</h3>
+            <p><a style="color:var(--text);" href="mailto:hello@vexilon.studio">hello@vexilon.studio</a></p>
+            <p style="margin-top:10px;">(Swap this to your Proton address until the domain email is live.)</p>
+          </div>
+
+          <div class="tile reveal">
+            <div class="icon" aria-hidden="true">📅</div>
+            <h3>Book a call</h3>
+            <p>Add your Calendly / Cal.com link here when ready.</p>
+            <p style="margin-top:10px;"><span class="pill">coming soon</span></p>
+          </div>
+
+          <div class="tile reveal">
+            <div class="icon" aria-hidden="true">🧷</div>
+            <h3>Social</h3>
+            <p>Drop your X/Instagram/Behance/Dribbble links here so people can stalk your work responsibly.</p>
+          </div>
+        </div>
+
+        <div class="hint reveal" style="margin-top:14px;">
+          To make your custom domain work: point <code>www</code> as a CNAME to your Railway URL, then forward root → <code>www</code>.
+        </div>
+      </div>
+    </section>
+
+    <footer class="footer">
+      <div class="wrap footerRow">
+        <div>© <span id="y"></span> Vexilon Studio. Built with taste and mild spite.</div>
+        <div class="smallLinks">
+          <a href="#services">Services</a>
+          <a href="#work">Work</a>
+          <a href="#contact">Contact</a>
+        </div>
+      </div>
+    </footer>
+  </main>
+
+  <script>
+    // year
+    document.getElementById('y').textContent = new Date().getFullYear();
+
+    // reveal on scroll
+    const obs = new IntersectionObserver((entries) => {
+      for (const e of entries) {
+        if (e.isIntersecting) e.target.classList.add('in');
+      }
+    }, { threshold: 0.12 });
+
+    document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+  </script>
+</body>
+</html>
