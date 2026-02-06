@@ -1,659 +1,713 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <meta name="description" content="Vexilon Studio builds sharp websites and bold digital art—fast, modern, and unapologetically beautiful." />
-  <title>Vexilon Studio — Websites & Digital Art</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="Professional web and app development services. Custom websites, mobile applications, and digital solutions.">
+    <meta name="robots" content="index, follow">
+    <title>VEXILON_STUDIO - Premium Web & App Development</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;600;800&family=JetBrains+Mono:wght@300;400&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --primary: #0F172A;
+            --accent: #06B6D4;
+            --accent-bright: #22D3EE;
+            --text: #E2E8F0;
+            --text-muted: #94A3B8;
+            --background: #020617;
+            --surface: #1E293B;
+        }
 
-  <!-- Open Graph -->
-  <meta property="og:title" content="Vexilon Studio — Websites & Digital Art" />
-  <meta property="og:description" content="We build sharp websites and bold digital art—fast, modern, and unapologetically beautiful." />
-  <meta property="og:type" content="website" />
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-  <style>
-    :root{
-      --bg0:#070A12;
-      --bg1:#0A1024;
-      --card: rgba(255,255,255,0.06);
-      --card2: rgba(255,255,255,0.09);
-      --stroke: rgba(255,255,255,0.12);
-      --text: rgba(255,255,255,0.92);
-      --muted: rgba(255,255,255,0.68);
-      --faint: rgba(255,255,255,0.48);
-      --shadow: 0 18px 60px rgba(0,0,0,.55);
-      --radius: 22px;
+        body {
+            font-family: 'JetBrains Mono', monospace;
+            background: var(--background);
+            color: var(--text);
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
 
-      --a: #7C3AED; /* violet */
-      --b: #06B6D4; /* cyan  */
-      --c: #F97316; /* orange */
+        body.rtl {
+            direction: rtl;
+        }
 
-      --max: 1120px;
-    }
+        .grid-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                linear-gradient(rgba(6, 182, 212, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(6, 182, 212, 0.03) 1px, transparent 1px);
+            background-size: 50px 50px;
+            animation: gridMove 20s linear infinite;
+            z-index: 0;
+        }
 
-    *{ box-sizing:border-box; }
-    html,body{ height:100%; }
-    body{
-      margin:0;
-      color:var(--text);
-      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
-      background:
-        radial-gradient(1100px 700px at 15% 10%, rgba(124,58,237,.25), transparent 60%),
-        radial-gradient(900px 600px at 80% 15%, rgba(6,182,212,.20), transparent 55%),
-        radial-gradient(800px 600px at 55% 95%, rgba(249,115,22,.14), transparent 55%),
-        linear-gradient(180deg, var(--bg0), var(--bg1));
-      overflow-x:hidden;
-    }
+        @keyframes gridMove {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(50px, 50px); }
+        }
 
-    /* Subtle animated noise overlay */
-    .grain{
-      pointer-events:none;
-      position:fixed; inset:0;
-      background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='220' height='220' filter='url(%23n)' opacity='.22'/%3E%3C/svg%3E");
-      mix-blend-mode: overlay;
-      opacity:.22;
-      animation: drift 10s linear infinite;
-      transform: translateZ(0);
-    }
-    @keyframes drift{
-      from{ transform:translate3d(0,0,0); }
-      to{ transform:translate3d(-3%,2%,0); }
-    }
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            position: relative;
+            z-index: 1;
+        }
 
-    /* Floating orbs */
-    .orb{
-      position:absolute;
-      width:520px; height:520px;
-      border-radius:50%;
-      filter: blur(30px);
-      opacity:.35;
-      mix-blend-mode: screen;
-      transform: translateZ(0);
-      animation: float 10s ease-in-out infinite;
-    }
-    .orb.one{ left:-180px; top:120px; background:radial-gradient(circle at 30% 30%, rgba(124,58,237,.9), transparent 60%); }
-    .orb.two{ right:-220px; top:240px; background:radial-gradient(circle at 30% 30%, rgba(6,182,212,.9), transparent 60%); animation-delay:-4s; }
-    .orb.three{ left:35%; bottom:-280px; background:radial-gradient(circle at 30% 30%, rgba(249,115,22,.75), transparent 62%); animation-delay:-7s; }
-    @keyframes float{
-      0%,100%{ transform: translate3d(0,0,0) scale(1); }
-      50%{ transform: translate3d(0,-18px,0) scale(1.03); }
-    }
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 2rem 0;
+            animation: fadeInDown 0.8s ease-out;
+        }
 
-    .wrap{ width:min(var(--max), calc(100% - 40px)); margin:0 auto; }
-    header{
-      position:sticky; top:0; z-index:20;
-      backdrop-filter: blur(14px);
-      background: linear-gradient(to bottom, rgba(7,10,18,.75), rgba(7,10,18,.25));
-      border-bottom:1px solid rgba(255,255,255,.08);
-    }
-    .nav{
-      display:flex; align-items:center; justify-content:space-between;
-      padding:16px 0;
-    }
-    .brand{
-      display:flex; align-items:center; gap:12px;
-      letter-spacing:.2px;
-      text-decoration:none;
-      color:var(--text);
-    }
-    .logo{
-      width:38px; height:38px;
-      border-radius:12px;
-      background:
-        radial-gradient(circle at 30% 30%, rgba(255,255,255,.25), transparent 35%),
-        linear-gradient(135deg, rgba(124,58,237,.95), rgba(6,182,212,.85));
-      border:1px solid rgba(255,255,255,.22);
-      box-shadow: 0 12px 30px rgba(0,0,0,.35);
-      position:relative;
-      overflow:hidden;
-    }
-    .logo:after{
-      content:"";
-      position:absolute; inset:-40%;
-      background: conic-gradient(from 130deg, rgba(255,255,255,.0), rgba(255,255,255,.18), rgba(255,255,255,.0));
-      animation: spin 3.8s linear infinite;
-    }
-    @keyframes spin{ to{ transform: rotate(360deg);} }
+        .logo {
+            font-family: 'Unbounded', sans-serif;
+            font-size: 1.8rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--accent), var(--accent-bright));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
 
-    .brand b{ font-weight:750; }
-    .pill{
-      font-size:12px;
-      padding:6px 10px;
-      border-radius:999px;
-      border:1px solid rgba(255,255,255,.14);
-      color:var(--muted);
-      background: rgba(255,255,255,.05);
-    }
+        .language-selector select {
+            background: var(--surface);
+            color: var(--text);
+            border: 1px solid rgba(6, 182, 212, 0.3);
+            padding: 0.7rem 1.5rem;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            outline: none;
+            border-radius: 4px;
+        }
 
-    .navlinks{ display:flex; gap:18px; align-items:center; }
-    .navlinks a{
-      color:var(--muted);
-      text-decoration:none;
-      font-size:14px;
-      padding:8px 10px;
-      border-radius:999px;
-      border:1px solid transparent;
-    }
-    .navlinks a:hover{
-      color:var(--text);
-      border-color: rgba(255,255,255,.14);
-      background: rgba(255,255,255,.04);
-    }
+        .language-selector select:hover {
+            border-color: var(--accent);
+            background: rgba(6, 182, 212, 0.1);
+        }
 
-    .cta{
-      display:flex; gap:10px; align-items:center;
-    }
-    .btn{
-      appearance:none; border:none; cursor:pointer;
-      font-weight:650;
-      border-radius:999px;
-      padding:10px 14px;
-      color:var(--text);
-      background: rgba(255,255,255,.06);
-      border:1px solid rgba(255,255,255,.14);
-      text-decoration:none;
-      display:inline-flex; align-items:center; gap:10px;
-      transition: transform .12s ease, background .12s ease, border-color .12s ease;
-    }
-    .btn:hover{ transform: translateY(-1px); border-color: rgba(255,255,255,.22); background: rgba(255,255,255,.09); }
-    .btn.primary{
-      background: linear-gradient(135deg, rgba(124,58,237,.95), rgba(6,182,212,.85));
-      border-color: rgba(255,255,255,.22);
-      box-shadow: 0 16px 60px rgba(124,58,237,.20);
-    }
-    .btn.primary:hover{ box-shadow: 0 20px 70px rgba(6,182,212,.18); }
+        .hero {
+            min-height: 90vh;
+            display: flex;
+            align-items: center;
+            position: relative;
+        }
 
-    main{ position:relative; }
-    .hero{
-      padding: 74px 0 24px;
-      position:relative;
-    }
-    .heroGrid{
-      display:grid;
-      grid-template-columns: 1.15fr .85fr;
-      gap: 22px;
-      align-items: start;
-    }
-    @media (max-width: 920px){
-      .heroGrid{ grid-template-columns: 1fr; }
-      .navlinks{ display:none; }
-    }
+        .hero-content {
+            max-width: 800px;
+        }
 
-    .kicker{
-      display:inline-flex;
-      align-items:center;
-      gap:10px;
-      padding:8px 12px;
-      border-radius:999px;
-      border:1px solid rgba(255,255,255,.14);
-      background: rgba(255,255,255,.05);
-      color: var(--muted);
-      font-size:13px;
-    }
-    .dot{
-      width:8px; height:8px; border-radius:50%;
-      background: linear-gradient(135deg, var(--a), var(--b));
-      box-shadow: 0 0 0 4px rgba(124,58,237,.16);
-    }
-    h1{
-      font-size: clamp(38px, 4.8vw, 62px);
-      line-height: 1.02;
-      margin: 14px 0 10px;
-      letter-spacing: -0.02em;
-    }
-    .grad{
-      background: linear-gradient(135deg, rgba(255,255,255,.95), rgba(255,255,255,.65));
-      -webkit-background-clip:text;
-      background-clip:text;
-      color:transparent;
-    }
-    .accent{
-      background: linear-gradient(135deg, var(--a), var(--b), var(--c));
-      -webkit-background-clip:text;
-      background-clip:text;
-      color:transparent;
-      filter: drop-shadow(0 8px 20px rgba(124,58,237,.18));
-    }
-    .lead{
-      color: var(--muted);
-      font-size: 16.5px;
-      line-height: 1.6;
-      max-width: 62ch;
-      margin: 10px 0 18px;
-    }
-    .heroActions{
-      display:flex;
-      flex-wrap:wrap;
-      gap:12px;
-      align-items:center;
-      margin: 14px 0 18px;
-    }
-    .hint{
-      color: var(--faint);
-      font-size: 13px;
-      margin-top: 8px;
-    }
+        .hero h1 {
+            font-family: 'Unbounded', sans-serif;
+            font-size: clamp(2.5rem, 7vw, 5.5rem);
+            font-weight: 800;
+            line-height: 1.1;
+            margin-bottom: 2rem;
+            animation: fadeInUp 0.8s ease-out 0.2s backwards;
+        }
 
-    .card{
-      background: linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.04));
-      border: 1px solid rgba(255,255,255,.12);
-      border-radius: var(--radius);
-      box-shadow: var(--shadow);
-      overflow:hidden;
-      position:relative;
-    }
-    .card:before{
-      content:"";
-      position:absolute; inset:-60%;
-      background: radial-gradient(circle at 30% 30%, rgba(124,58,237,.16), transparent 40%),
-                  radial-gradient(circle at 65% 45%, rgba(6,182,212,.12), transparent 38%);
-      transform: translateZ(0);
-      pointer-events:none;
-    }
-    .cardInner{ position:relative; padding:18px; }
+        .gradient-text {
+            background: linear-gradient(135deg, var(--text) 0%, var(--accent-bright) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
 
-    .statGrid{
-      display:grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 10px;
-      margin-top: 12px;
-    }
-    @media (max-width: 560px){ .statGrid{ grid-template-columns: 1fr; } }
+        .hero p {
+            font-size: 1.2rem;
+            color: var(--text-muted);
+            margin-bottom: 3rem;
+            max-width: 600px;
+            animation: fadeInUp 0.8s ease-out 0.4s backwards;
+        }
 
-    .stat{
-      background: rgba(0,0,0,.18);
-      border: 1px solid rgba(255,255,255,.10);
-      border-radius: 16px;
-      padding: 12px;
-    }
-    .stat b{ font-size: 18px; display:block; letter-spacing:-.01em; }
-    .stat span{ color: var(--muted); font-size: 12.5px; }
+        .cta-group {
+            display: flex;
+            gap: 1.5rem;
+            animation: fadeInUp 0.8s ease-out 0.6s backwards;
+            flex-wrap: wrap;
+        }
 
-    .services{
-      padding: 28px 0 8px;
-    }
-    .sectionTitle{
-      display:flex; justify-content:space-between; align-items:flex-end; gap:16px;
-      margin: 18px 0 12px;
-    }
-    .sectionTitle h2{
-      margin:0;
-      font-size: 22px;
-      letter-spacing: -0.01em;
-    }
-    .sectionTitle p{
-      margin:0;
-      color:var(--muted);
-      font-size: 13.5px;
-      max-width: 64ch;
-    }
+        .btn {
+            padding: 1rem 2.5rem;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.95rem;
+            font-weight: 400;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+            position: relative;
+            overflow: hidden;
+        }
 
-    .tiles{
-      display:grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 14px;
-    }
-    @media (max-width: 920px){ .tiles{ grid-template-columns: 1fr; } }
+        .btn-primary {
+            background: var(--accent);
+            color: var(--background);
+            box-shadow: 0 0 30px rgba(6, 182, 212, 0.3);
+        }
 
-    .tile{
-      background: rgba(255,255,255,.05);
-      border:1px solid rgba(255,255,255,.12);
-      border-radius: 18px;
-      padding: 16px;
-      transition: transform .15s ease, background .15s ease, border-color .15s ease;
-      position:relative;
-      overflow:hidden;
-    }
-    .tile:hover{
-      transform: translateY(-2px);
-      background: rgba(255,255,255,.07);
-      border-color: rgba(255,255,255,.20);
-    }
-    .icon{
-      width:40px; height:40px; border-radius:14px;
-      display:grid; place-items:center;
-      background: linear-gradient(135deg, rgba(124,58,237,.55), rgba(6,182,212,.30));
-      border:1px solid rgba(255,255,255,.18);
-      box-shadow: 0 12px 30px rgba(0,0,0,.25);
-      margin-bottom: 10px;
-      font-size: 18px;
-    }
-    .tile h3{ margin: 6px 0 6px; font-size: 16px; }
-    .tile p{ margin:0; color:var(--muted); line-height: 1.55; font-size: 14px; }
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 0 40px rgba(6, 182, 212, 0.5);
+        }
 
-    .showcase{
-      padding: 18px 0 44px;
-    }
-    .mock{
-      height: 300px;
-      border-radius: 20px;
-      background:
-        linear-gradient(135deg, rgba(124,58,237,.16), rgba(6,182,212,.10)),
-        radial-gradient(600px 220px at 20% 20%, rgba(255,255,255,.10), transparent 60%),
-        radial-gradient(540px 260px at 80% 45%, rgba(255,255,255,.06), transparent 60%),
-        rgba(0,0,0,.18);
-      border:1px solid rgba(255,255,255,.12);
-      position:relative;
-      overflow:hidden;
-    }
-    .mock:before{
-      content:"";
-      position:absolute; inset:0;
-      background:
-        linear-gradient(to right, rgba(255,255,255,.06), rgba(255,255,255,0) 45%, rgba(255,255,255,.05));
-      opacity:.4;
-      transform: translateX(-25%);
-      animation: scan 4.8s ease-in-out infinite;
-    }
-    @keyframes scan{
-      0%,100%{ transform: translateX(-25%); opacity:.25; }
-      50%{ transform: translateX(25%); opacity:.45; }
-    }
-    .mockInner{
-      position:absolute; inset:0;
-      padding: 16px;
-      display:grid;
-      grid-template-rows: auto 1fr auto;
-      gap: 14px;
-    }
-    .browserBar{
-      display:flex; align-items:center; justify-content:space-between;
-      gap:12px;
-      color: var(--muted);
-      font-size: 12px;
-    }
-    .dots{ display:flex; gap:8px; align-items:center; }
-    .dots i{ width:10px; height:10px; border-radius:50%; background: rgba(255,255,255,.18); display:inline-block; }
-    .path{
-      flex:1;
-      border:1px solid rgba(255,255,255,.10);
-      background: rgba(0,0,0,.18);
-      padding: 8px 10px;
-      border-radius: 999px;
-      overflow:hidden;
-      white-space:nowrap;
-      text-overflow: ellipsis;
-    }
+        .contact-info {
+            margin-top: 2rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            max-width: 500px;
+            max-height: 0;
+            overflow: hidden;
+            opacity: 0;
+            transition: max-height 0.6s ease, opacity 0.6s ease, margin-top 0.6s ease;
+        }
 
-    .gridbits{
-      display:grid;
-      grid-template-columns: 1.1fr .9fr;
-      gap: 14px;
-      align-items:stretch;
-    }
-    @media (max-width: 700px){ .gridbits{ grid-template-columns: 1fr; } }
+        .contact-info.visible {
+            max-height: 300px;
+            opacity: 1;
+            margin-top: 2rem;
+        }
 
-    .mini{
-      border:1px solid rgba(255,255,255,.10);
-      background: rgba(0,0,0,.18);
-      border-radius: 18px;
-      padding: 14px;
-    }
-    .mini h4{ margin:0 0 6px; font-size: 14px; }
-    .mini p{ margin:0; color: var(--muted); font-size: 13px; line-height: 1.55; }
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            background: rgba(6, 182, 212, 0.1);
+            padding: 1rem;
+            border-radius: 4px;
+            border-left: 3px solid var(--accent);
+        }
 
-    .footer{
-      padding: 26px 0 34px;
-      border-top: 1px solid rgba(255,255,255,.10);
-      color: var(--muted);
-      font-size: 13px;
-    }
-    .footerRow{
-      display:flex; justify-content:space-between; gap:18px; align-items:center; flex-wrap:wrap;
-    }
-    .smallLinks{
-      display:flex; gap:12px; flex-wrap:wrap;
-    }
-    .smallLinks a{
-      color: var(--muted);
-      text-decoration:none;
-      padding: 6px 10px;
-      border-radius: 999px;
-      border:1px solid rgba(255,255,255,.10);
-      background: rgba(255,255,255,.04);
-    }
-    .smallLinks a:hover{ color: var(--text); border-color: rgba(255,255,255,.18); }
+        .contact-item span {
+            font-size: 1.5rem;
+        }
 
-    /* reveal animation */
-    .reveal{ opacity:0; transform: translateY(10px); transition: opacity .6s ease, transform .6s ease; }
-    .reveal.in{ opacity:1; transform: translateY(0); }
-  </style>
+        .contact-item a {
+            color: var(--accent);
+            text-decoration: none;
+            font-weight: 400;
+            transition: color 0.3s ease;
+        }
+
+        .contact-item a:hover {
+            color: var(--accent-bright);
+        }
+
+        .code-float {
+            position: absolute;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.8rem;
+            color: var(--accent);
+            opacity: 0.15;
+            pointer-events: none;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .code-float:nth-child(1) {
+            top: 20%;
+            right: 10%;
+            animation-delay: 0s;
+        }
+
+        .code-float:nth-child(2) {
+            top: 60%;
+            right: 5%;
+            animation-delay: 2s;
+        }
+
+        .code-float:nth-child(3) {
+            top: 40%;
+            left: 5%;
+            animation-delay: 4s;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+
+        .services {
+            padding: 8rem 0;
+            position: relative;
+        }
+
+        .section-title {
+            font-family: 'Unbounded', sans-serif;
+            font-size: clamp(2rem, 5vw, 3.5rem);
+            font-weight: 600;
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+
+        .section-subtitle {
+            text-align: center;
+            color: var(--text-muted);
+            max-width: 600px;
+            margin: 0 auto 4rem;
+            font-size: 1.1rem;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2rem;
+            margin-top: 4rem;
+        }
+
+        .service-card {
+            background: var(--surface);
+            padding: 2.5rem;
+            border: 1px solid rgba(6, 182, 212, 0.1);
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .service-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(90deg, var(--accent), var(--accent-bright));
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.4s ease;
+        }
+
+        .service-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .service-card:hover {
+            transform: translateY(-8px);
+            border-color: var(--accent);
+            box-shadow: 0 20px 60px rgba(6, 182, 212, 0.15);
+        }
+
+        .service-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+            display: block;
+        }
+
+        .service-card h3 {
+            font-family: 'Unbounded', sans-serif;
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--text);
+        }
+
+        .service-card p {
+            color: var(--text-muted);
+            line-height: 1.8;
+        }
+
+        .stats {
+            padding: 6rem 0;
+            text-align: center;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            max-width: 400px;
+            margin: 3rem auto;
+        }
+
+        .stat-item {
+            animation: fadeInUp 0.8s ease-out backwards;
+        }
+
+        .stat-number {
+            font-family: 'Unbounded', sans-serif;
+            font-size: 3.5rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--accent), var(--accent-bright));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            color: var(--text-muted);
+            font-size: 1rem;
+        }
+
+        footer {
+            padding: 3rem 0;
+            border-top: 1px solid rgba(6, 182, 212, 0.1);
+            text-align: center;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .cta-group {
+                flex-direction: column;
+                width: 100%;
+            }
+
+            .btn {
+                width: 100%;
+                text-align: center;
+            }
+
+            .services-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
 </head>
-
 <body>
-  <div class="grain"></div>
-  <div class="orb one"></div>
-  <div class="orb two"></div>
-  <div class="orb three"></div>
+    <div class="grid-background"></div>
+    
+    <div class="container">
+        <nav>
+            <div class="logo">VEXILON_STUDIO</div>
+            <div class="language-selector">
+                <select id="languageSelect">
+                    <option value="en">English</option>
+                    <option value="de">Deutsch</option>
+                    <option value="es">Español</option>
+                    <option value="ru">Русский</option>
+                    <option value="ar">العربية</option>
+                </select>
+            </div>
+        </nav>
 
-  <header>
-    <div class="wrap nav">
-      <a class="brand" href="#top" aria-label="Vexilon Studio home">
-        <div class="logo" aria-hidden="true"></div>
-        <div>
-          <b>Vexilon</b> <span class="pill">Studio</span>
-        </div>
-      </a>
+        <section class="hero">
+            <div class="hero-content">
+                <h1>
+                    <span data-i18n="hero.title1">Building Digital</span> <span class="gradient-text" data-i18n="hero.title2">Experiences</span> <span data-i18n="hero.title3">That Matter</span>
+                </h1>
+                <p data-i18n="hero.description">
+                    Custom websites and applications crafted with precision, creativity, and cutting-edge technology. 
+                    From concept to deployment, we transform your ideas into powerful digital solutions.
+                </p>
+                <div class="cta-group">
+                    <button class="btn btn-primary" onclick="toggleContactInfo()" data-i18n="hero.cta">Get In Touch</button>
+                </div>
+                <div class="contact-info" id="contactInfo">
+                    <div class="contact-item">
+                        <span>📧</span>
+                        <a href="mailto:vexilonstudio@protonmail.com">vexilonstudio@protonmail.com</a>
+                    </div>
+                    <div class="contact-item">
+                        <span>📞</span>
+                        <a href="tel:+491759690672">0175/9690672</a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="code-float">&lt;/&gt; React</div>
+            <div class="code-float">{ JavaScript }</div>
+            <div class="code-float">function() { }</div>
+        </section>
 
-      <nav class="navlinks" aria-label="Site">
-        <a href="#services">Services</a>
-        <a href="#work">Work</a>
-        <a href="#contact">Contact</a>
-      </nav>
+        <section class="services" id="services">
+            <h2 class="section-title" data-i18n="services.title">What We Build</h2>
+            <p class="section-subtitle" data-i18n="services.subtitle">
+                Full-stack development services tailored to your unique needs, 
+                from sleek landing pages to complex web applications.
+            </p>
+            
+            <div class="services-grid">
+                <div class="service-card">
+                    <span class="service-icon">🌐</span>
+                    <h3 data-i18n="services.web.title">Web Development</h3>
+                    <p data-i18n="services.web.description">
+                        Responsive, performant websites built with modern frameworks. 
+                        From corporate sites to e-commerce platforms, optimized for speed and SEO.
+                    </p>
+                </div>
+                
+                <div class="service-card">
+                    <span class="service-icon">📱</span>
+                    <h3 data-i18n="services.app.title">App Development</h3>
+                    <p data-i18n="services.app.description">
+                        Native and cross-platform mobile applications that deliver 
+                        seamless user experiences on iOS and Android.
+                    </p>
+                </div>
+                
+                <div class="service-card">
+                    <span class="service-icon">⚡</span>
+                    <h3 data-i18n="services.api.title">API Integration</h3>
+                    <p data-i18n="services.api.description">
+                        Connect your systems with powerful APIs and backend solutions. 
+                        Database design, cloud deployment, and scalable architecture.
+                    </p>
+                </div>
+                
+                <div class="service-card">
+                    <span class="service-icon">🎨</span>
+                    <h3 data-i18n="services.ui.title">UI/UX Design</h3>
+                    <p data-i18n="services.ui.description">
+                        Beautiful interfaces that users love. Wireframing, prototyping, 
+                        and design systems that bring your brand to life.
+                    </p>
+                </div>
+                
+                <div class="service-card">
+                    <span class="service-icon">🔧</span>
+                    <h3 data-i18n="services.maintenance.title">Maintenance & Support</h3>
+                    <p data-i18n="services.maintenance.description">
+                        Ongoing support to keep your digital products running smoothly. 
+                        Updates and feature enhancements.
+                    </p>
+                </div>
+                
+                <div class="service-card">
+                    <span class="service-icon">🚀</span>
+                    <h3 data-i18n="services.performance.title">Performance Optimization</h3>
+                    <p data-i18n="services.performance.description">
+                        Speed matters. We optimize load times, improve Core Web Vitals, 
+                        and ensure your site runs at peak performance.
+                    </p>
+                </div>
+            </div>
+        </section>
 
-      <div class="cta">
-        <a class="btn" href="#contact">Get a quote</a>
-        <a class="btn primary" href="#contact" aria-label="Start a project">
-          Start a project
-          <span aria-hidden="true">→</span>
-        </a>
-      </div>
+        <section class="stats">
+            <div class="stats-grid">
+                <div class="stat-item">
+                    <span class="stat-number">25+</span>
+                    <span class="stat-label" data-i18n="stats.experience">Years of Combined Experience</span>
+                </div>
+            </div>
+        </section>
+
+        <footer>
+        </footer>
     </div>
-  </header>
 
-  <main id="top">
-    <section class="hero">
-      <div class="wrap heroGrid">
-        <div class="reveal">
-          <div class="kicker"><span class="dot"></span> Websites that load fast. Art that hits hard.</div>
-          <h1>
-            <span class="grad">We build</span> <span class="accent">websites</span>
-            <span class="grad">and</span> <span class="accent">digital art</span><span class="grad">—</span><br/>
-            <span class="grad">designed to be remembered.</span>
-          </h1>
-          <p class="lead">
-            Vexilon Studio crafts modern websites, brand visuals, and bold digital artwork with the same philosophy:
-            <strong>clarity + character + speed</strong>. No bloat. No “template energy.” Just clean, sharp, custom work.
-          </p>
+    <script>
+        'use strict';
 
-          <div class="heroActions">
-            <a class="btn primary" href="#contact">Book a free intro call <span aria-hidden="true">→</span></a>
-            <a class="btn" href="#work">See the vibe</a>
-            <a class="btn" href="mailto:hello@vexilon.studio">Email us</a>
-          </div>
-          <div class="hint">Tip: Replace <code>hello@vexilon.studio</code> with your real email once your domain is live.</div>
-        </div>
+        // Toggle contact info function
+        function toggleContactInfo() {
+            const contactInfo = document.getElementById('contactInfo');
+            if (contactInfo) {
+                contactInfo.classList.toggle('visible');
+            }
+        }
 
-        <div class="card reveal" aria-label="Value card">
-          <div class="cardInner">
-            <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:14px;">
-              <div>
-                <div style="color:var(--muted);font-size:13px;">What you get</div>
-                <div style="font-size:18px;font-weight:750;margin-top:3px;letter-spacing:-.01em;">
-                  A site that looks expensive and feels effortless.
-                </div>
-              </div>
-              <div class="pill">launch-ready</div>
-            </div>
+        // Valid language codes
+        const VALID_LANGUAGES = ['en', 'de', 'es', 'ru', 'ar'];
 
-            <div class="statGrid">
-              <div class="stat">
-                <b>Fast</b>
-                <span>Performance-first builds</span>
-              </div>
-              <div class="stat">
-                <b>Custom</b>
-                <span>Designed, not assembled</span>
-              </div>
-              <div class="stat">
-                <b>Sharp</b>
-                <span>Modern UI + strong art direction</span>
-              </div>
-            </div>
+        const translations = {
+            en: {
+                "hero.title1": "Building Digital",
+                "hero.title2": "Experiences",
+                "hero.title3": "That Matter",
+                "hero.description": "Custom websites and applications crafted with precision, creativity, and cutting-edge technology. From concept to deployment, we transform your ideas into powerful digital solutions.",
+                "hero.cta": "Get In Touch",
+                "services.title": "What We Build",
+                "services.subtitle": "Full-stack development services tailored to your unique needs, from sleek landing pages to complex web applications.",
+                "services.web.title": "Web Development",
+                "services.web.description": "Responsive, performant websites built with modern frameworks. From corporate sites to e-commerce platforms, optimized for speed and SEO.",
+                "services.app.title": "App Development",
+                "services.app.description": "Native and cross-platform mobile applications that deliver seamless user experiences on iOS and Android.",
+                "services.api.title": "API Integration",
+                "services.api.description": "Connect your systems with powerful APIs and backend solutions. Database design, cloud deployment, and scalable architecture.",
+                "services.ui.title": "UI/UX Design",
+                "services.ui.description": "Beautiful interfaces that users love. Wireframing, prototyping, and design systems that bring your brand to life.",
+                "services.maintenance.title": "Maintenance & Support",
+                "services.maintenance.description": "Ongoing support to keep your digital products running smoothly. Updates and feature enhancements.",
+                "services.performance.title": "Performance Optimization",
+                "services.performance.description": "Speed matters. We optimize load times, improve Core Web Vitals, and ensure your site runs at peak performance.",
+                "stats.experience": "Years of Combined Experience"
+            },
+            de: {
+                "hero.title1": "Digitale",
+                "hero.title2": "Erlebnisse",
+                "hero.title3": "die zählen",
+                "hero.description": "Maßgeschneiderte Websites und Anwendungen, entwickelt mit Präzision, Kreativität und modernster Technologie. Von der Konzeption bis zur Bereitstellung verwandeln wir Ihre Ideen in leistungsstarke digitale Lösungen.",
+                "hero.cta": "Kontakt aufnehmen",
+                "services.title": "Was wir entwickeln",
+                "services.subtitle": "Full-Stack-Entwicklungsdienste, die auf Ihre individuellen Bedürfnisse zugeschnitten sind, von eleganten Landing Pages bis zu komplexen Webanwendungen.",
+                "services.web.title": "Web-Entwicklung",
+                "services.web.description": "Responsive, leistungsstarke Websites mit modernen Frameworks. Von Unternehmensseiten bis zu E-Commerce-Plattformen, optimiert für Geschwindigkeit und SEO.",
+                "services.app.title": "App-Entwicklung",
+                "services.app.description": "Native und plattformübergreifende mobile Anwendungen, die nahtlose Benutzererfahrungen auf iOS und Android bieten.",
+                "services.api.title": "API-Integration",
+                "services.api.description": "Verbinden Sie Ihre Systeme mit leistungsstarken APIs und Backend-Lösungen. Datenbank-Design, Cloud-Bereitstellung und skalierbare Architektur.",
+                "services.ui.title": "UI/UX Design",
+                "services.ui.description": "Schöne Oberflächen, die Benutzer lieben. Wireframing, Prototyping und Design-Systeme, die Ihre Marke zum Leben erwecken.",
+                "services.maintenance.title": "Wartung & Support",
+                "services.maintenance.description": "Kontinuierliche Unterstützung, damit Ihre digitalen Produkte reibungslos laufen. Updates und Feature-Erweiterungen.",
+                "services.performance.title": "Performance-Optimierung",
+                "services.performance.description": "Geschwindigkeit zählt. Wir optimieren Ladezeiten, verbessern Core Web Vitals und stellen sicher, dass Ihre Website mit Höchstleistung läuft.",
+                "stats.experience": "Jahre kombinierte Erfahrung"
+            },
+            es: {
+                "hero.title1": "Construyendo",
+                "hero.title2": "Experiencias",
+                "hero.title3": "Digitales que Importan",
+                "hero.description": "Sitios web y aplicaciones personalizados creados con precisión, creatividad y tecnología de vanguardia. Desde el concepto hasta el despliegue, transformamos tus ideas en soluciones digitales poderosas.",
+                "hero.cta": "Contáctanos",
+                "services.title": "Lo que Construimos",
+                "services.subtitle": "Servicios de desarrollo full-stack adaptados a sus necesidades únicas, desde elegantes páginas de destino hasta aplicaciones web complejas.",
+                "services.web.title": "Desarrollo Web",
+                "services.web.description": "Sitios web responsivos y de alto rendimiento construidos con frameworks modernos. Desde sitios corporativos hasta plataformas de comercio electrónico, optimizados para velocidad y SEO.",
+                "services.app.title": "Desarrollo de Apps",
+                "services.app.description": "Aplicaciones móviles nativas y multiplataforma que ofrecen experiencias de usuario fluidas en iOS y Android.",
+                "services.api.title": "Integración de API",
+                "services.api.description": "Conecte sus sistemas con APIs potentes y soluciones backend. Diseño de bases de datos, implementación en la nube y arquitectura escalable.",
+                "services.ui.title": "Diseño UI/UX",
+                "services.ui.description": "Interfaces hermosas que los usuarios adoran. Wireframing, prototipado y sistemas de diseño que dan vida a su marca.",
+                "services.maintenance.title": "Mantenimiento y Soporte",
+                "services.maintenance.description": "Soporte continuo para mantener sus productos digitales funcionando sin problemas. Actualizaciones y mejoras de funciones.",
+                "services.performance.title": "Optimización de Rendimiento",
+                "services.performance.description": "La velocidad importa. Optimizamos los tiempos de carga, mejoramos Core Web Vitals y aseguramos que su sitio funcione al máximo rendimiento.",
+                "stats.experience": "Años de Experiencia Combinada"
+            },
+            ru: {
+                "hero.title1": "Создаем цифровые",
+                "hero.title2": "решения",
+                "hero.title3": "которые важны",
+                "hero.description": "Индивидуальные веб-сайты и приложения, созданные с точностью, креативностью и передовыми технологиями. От концепции до развертывания мы превращаем ваши идеи в мощные цифровые решения.",
+                "hero.cta": "Связаться с нами",
+                "services.title": "Что мы создаем",
+                "services.subtitle": "Услуги full-stack разработки, адаптированные к вашим уникальным потребностям, от элегантных целевых страниц до сложных веб-приложений.",
+                "services.web.title": "Веб-разработка",
+                "services.web.description": "Адаптивные, производительные веб-сайты, созданные с использованием современных фреймворков. От корпоративных сайтов до платформ электронной коммерции, оптимизированные для скорости и SEO.",
+                "services.app.title": "Разработка приложений",
+                "services.app.description": "Нативные и кроссплатформенные мобильные приложения, обеспечивающие бесшовный пользовательский опыт на iOS и Android.",
+                "services.api.title": "Интеграция API",
+                "services.api.description": "Подключите ваши системы с помощью мощных API и бэкенд-решений. Проектирование баз данных, облачное развертывание и масштабируемая архитектура.",
+                "services.ui.title": "UI/UX Дизайн",
+                "services.ui.description": "Красивые интерфейсы, которые нравятся пользователям. Вайрфрейминг, прототипирование и системы дизайна, которые оживляют ваш бренд.",
+                "services.maintenance.title": "Обслуживание и поддержка",
+                "services.maintenance.description": "Постоянная поддержка для бесперебойной работы ваших цифровых продуктов. Обновления и улучшение функций.",
+                "services.performance.title": "Оптимизация производительности",
+                "services.performance.description": "Скорость имеет значение. Мы оптимизируем время загрузки, улучшаем Core Web Vitals и обеспечиваем максимальную производительность вашего сайта.",
+                "stats.experience": "Лет совокупного опыта"
+            },
+            ar: {
+                "hero.title1": "بناء تجارب",
+                "hero.title2": "رقمية",
+                "hero.title3": "مهمة",
+                "hero.description": "مواقع وتطبيقات مخصصة مصممة بدقة وإبداع وتكنولوجيا متطورة. من المفهوم إلى النشر، نحول أفكارك إلى حلول رقمية قوية.",
+                "hero.cta": "تواصل معنا",
+                "services.title": "ما نبنيه",
+                "services.subtitle": "خدمات تطوير كاملة مصممة خصيصًا لاحتياجاتك الفريدة، من صفحات الهبوط الأنيقة إلى تطبيقات الويب المعقدة.",
+                "services.web.title": "تطوير الويب",
+                "services.web.description": "مواقع ويب سريعة الاستجابة وعالية الأداء مبنية بأحدث الأطر. من مواقع الشركات إلى منصات التجارة الإلكترونية، محسّنة للسرعة وتحسين محركات البحث.",
+                "services.app.title": "تطوير التطبيقات",
+                "services.app.description": "تطبيقات محمولة أصلية ومتعددة المنصات توفر تجارب مستخدم سلسة على iOS و Android.",
+                "services.api.title": "تكامل API",
+                "services.api.description": "اربط أنظمتك بواجهات برمجة تطبيقات قوية وحلول خلفية. تصميم قاعدة البيانات، النشر السحابي، والهندسة المعمارية القابلة للتطوير.",
+                "services.ui.title": "تصميم UI/UX",
+                "services.ui.description": "واجهات جميلة يحبها المستخدمون. الإطارات السلكية والنماذج الأولية وأنظمة التصميم التي تحيي علامتك التجارية.",
+                "services.maintenance.title": "الصيانة والدعم",
+                "services.maintenance.description": "دعم مستمر للحفاظ على منتجاتك الرقمية تعمل بسلاسة. التحديثات وتحسينات الميزات.",
+                "services.performance.title": "تحسين الأداء",
+                "services.performance.description": "السرعة مهمة. نحن نحسن أوقات التحميل، ونحسن مؤشرات الويب الأساسية، ونضمن تشغيل موقعك بأقصى أداء.",
+                "stats.experience": "سنوات من الخبرة المشتركة"
+            }
+        };
 
-            <div style="margin-top:12px;color:var(--muted);font-size:13.5px;line-height:1.55;">
-              We’re a studio that merges engineering and aesthetics. If you want “safe and bland,”
-              there are cheaper options. If you want people to <em>remember</em> you, let’s talk.
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
+        function validateLanguage(lang) {
+            return VALID_LANGUAGES.includes(lang) ? lang : 'en';
+        }
 
-    <section id="services" class="services">
-      <div class="wrap">
-        <div class="sectionTitle reveal">
-          <div>
-            <h2>Services</h2>
-            <p>Pick what you need. Or hand us the chaos and we’ll turn it into something clean.</p>
-          </div>
-          <div class="pill">web + art</div>
-        </div>
+        function changeLanguage(lang) {
+            const validLang = validateLanguage(lang);
+            
+            document.querySelectorAll('[data-i18n]').forEach(element => {
+                const key = element.getAttribute('data-i18n');
+                if (translations[validLang] && translations[validLang][key]) {
+                    element.textContent = translations[validLang][key];
+                }
+            });
 
-        <div class="tiles">
-          <div class="tile reveal">
-            <div class="icon" aria-hidden="true">⚡</div>
-            <h3>Websites that convert</h3>
-            <p>Landing pages, portfolios, and full sites built for speed, clarity, SEO basics, and mobile-first polish.</p>
-          </div>
+            if (validLang === 'ar') {
+                document.body.classList.add('rtl');
+                document.documentElement.setAttribute('lang', 'ar');
+                document.documentElement.setAttribute('dir', 'rtl');
+            } else {
+                document.body.classList.remove('rtl');
+                document.documentElement.setAttribute('lang', validLang);
+                document.documentElement.setAttribute('dir', 'ltr');
+            }
 
-          <div class="tile reveal">
-            <div class="icon" aria-hidden="true">🧠</div>
-            <h3>Brand & visual identity</h3>
-            <p>Logos, typography direction, palettes, and layout systems—so your brand stops looking “temporary.”</p>
-          </div>
+            try {
+                localStorage.setItem('preferredLanguage', validLang);
+            } catch (e) {
+                console.warn('Unable to save language preference:', e);
+            }
+        }
 
-          <div class="tile reveal">
-            <div class="icon" aria-hidden="true">🎨</div>
-            <h3>Digital art & assets</h3>
-            <p>Cover art, social visuals, UI illustrations, icons, and custom graphics with a distinctive aesthetic.</p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section id="work" class="showcase">
-      <div class="wrap">
-        <div class="sectionTitle reveal">
-          <div>
-            <h2>Work preview</h2>
-            <p>No fake case studies. This is a vibe scaffold—swap in your real projects as you ship them.</p>
-          </div>
-          <div class="pill">replaceable blocks</div>
-        </div>
-
-        <div class="card reveal">
-          <div class="cardInner">
-            <div class="mock" aria-label="Mock browser preview">
-              <div class="mockInner">
-                <div class="browserBar">
-                  <div class="dots" aria-hidden="true"><i></i><i></i><i></i></div>
-                  <div class="path">https://vexilon.studio / featured</div>
-                  <div class="pill">preview</div>
-                </div>
-
-                <div class="gridbits">
-                  <div class="mini">
-                    <h4>Website builds</h4>
-                    <p>Clean layout. Real hierarchy. The kind of UI that makes people trust you instantly.</p>
-                  </div>
-                  <div class="mini">
-                    <h4>Art direction</h4>
-                    <p>Color and composition that feels intentional—not like you clicked “randomize” and prayed.</p>
-                  </div>
-                </div>
-
-                <div style="display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;">
-                  <div style="color:var(--muted);font-size:13px;">Add real portfolio tiles here later (images + links).</div>
-                  <a class="btn" href="#contact">Build ours next <span aria-hidden="true">→</span></a>
-                </div>
-              </div>
-            </div>
-
-            <div style="margin-top:14px;display:flex;gap:10px;flex-wrap:wrap;">
-              <span class="pill">Modern UI</span>
-              <span class="pill">Fast load</span>
-              <span class="pill">Art-forward</span>
-              <span class="pill">Mobile-first</span>
-              <span class="pill">SEO basics</span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section id="contact" class="services" style="padding-bottom:44px;">
-      <div class="wrap">
-        <div class="sectionTitle reveal">
-          <div>
-            <h2>Contact</h2>
-            <p>Tell us what you’re building. We’ll reply with a clear plan, timeline, and price range.</p>
-          </div>
-          <div class="pill">no fluff</div>
-        </div>
-
-        <div class="tiles">
-          <div class="tile reveal">
-            <div class="icon" aria-hidden="true">✉️</div>
-            <h3>Email</h3>
-            <p><a style="color:var(--text);" href="mailto:hello@vexilon.studio">hello@vexilon.studio</a></p>
-            <p style="margin-top:10px;">(Swap this to your Proton address until the domain email is live.)</p>
-          </div>
-
-          <div class="tile reveal">
-            <div class="icon" aria-hidden="true">📅</div>
-            <h3>Book a call</h3>
-            <p>Add your Calendly / Cal.com link here when ready.</p>
-            <p style="margin-top:10px;"><span class="pill">coming soon</span></p>
-          </div>
-
-          <div class="tile reveal">
-            <div class="icon" aria-hidden="true">🧷</div>
-            <h3>Social</h3>
-            <p>Drop your X/Instagram/Behance/Dribbble links here so people can stalk your work responsibly.</p>
-          </div>
-        </div>
-
-        <div class="hint reveal" style="margin-top:14px;">
-          To make your custom domain work: point <code>www</code> as a CNAME to your Railway URL, then forward root → <code>www</code>.
-        </div>
-      </div>
-    </section>
-
-    <footer class="footer">
-      <div class="wrap footerRow">
-        <div>© <span id="y"></span> Vexilon Studio. Built with taste and mild spite.</div>
-        <div class="smallLinks">
-          <a href="#services">Services</a>
-          <a href="#work">Work</a>
-          <a href="#contact">Contact</a>
-        </div>
-      </div>
-    </footer>
-  </main>
-
-  <script>
-    // year
-    document.getElementById('y').textContent = new Date().getFullYear();
-
-    // reveal on scroll
-    const obs = new IntersectionObserver((entries) => {
-      for (const e of entries) {
-        if (e.isIntersecting) e.target.classList.add('in');
-      }
-    }, { threshold: 0.12 });
-
-    document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
-  </script>
+        window.addEventListener('DOMContentLoaded', () => {
+            const selectElement = document.getElementById('languageSelect');
+            
+            if (selectElement) {
+                selectElement.addEventListener('change', function() {
+                    changeLanguage(this.value);
+                });
+            }
+            
+            try {
+                const savedLang = localStorage.getItem('preferredLanguage');
+                const langToUse = validateLanguage(savedLang);
+                
+                if (selectElement) {
+                    selectElement.value = langToUse;
+                    if (langToUse !== 'en') {
+                        changeLanguage(langToUse);
+                    }
+                }
+            } catch (e) {
+                console.warn('Unable to load language preference:', e);
+            }
+        });
+    </script>
 </body>
 </html>
